@@ -1,2 +1,2 @@
 ## Proposal
-Indigo is a simple utility for generating images based on user input.
+One of the biggest pain points my last startup could not solve was being able to dynamically generate images. This utility is inspired by Jon Calhoun's image transformer service on Gophercises. Users will be able to upload images and they will be guided through the process of tranformation process. 
