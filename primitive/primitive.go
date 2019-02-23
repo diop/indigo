@@ -64,7 +64,10 @@ func Transform(image io.Reader, ext string, numShapes int, opts ...func() []stri
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(stdCombo)
+	_ = stdCombo
+	if strings.TrimSpace(stdCombo) == "" {
+		panic(stdCombo)
+	}
 
 	// Read out into a reader, return reader. delete out
 	b := bytes.NewBuffer(nil)
