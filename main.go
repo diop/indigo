@@ -67,7 +67,7 @@ func main() {
 		}
 		defer file.Close()
 		ext := filepath.Ext(header.Filename)[1:]
-		onDisk, err := tempFile("", ext)
+		onDisk, err := tempfile("", ext)
 		if err != nil {
 			http.Error(w, "Something went wrong", http.StatusInternalServerError)
 			return
@@ -100,8 +100,8 @@ func renderNumShapeChoices(w http.ResponseWriter, r *http.Request, rs io.ReadSee
 	}
 	html := `<html><body>
 				{{range .}}
-					<a href="/modify/{{.Name}}?mode={{.Mode}}&n={{.NumShapes}}>
-						<img style="width: 20%" src="/images/{{.Name}}">
+					<a href="/modify/{{.Name}}?mode={{.Mode}}&n={{.NumShapes}}">
+						<img style="width: 20%;" src="/images/{{.Name}}">
 					</a>
 				{{end}}
 			</body></html>`
@@ -140,8 +140,8 @@ func renderModeChoices(w http.ResponseWriter, r *http.Request, rs io.ReadSeeker,
 	}
 	html := `<html><body>
 				{{range .}}
-					<a href="/modify/{{.Name}}?mode={{.Mode}}>
-						<img style="width: 20%" src="/images/{{.Name}}">
+					<a href="/modify/{{.Name}}?mode={{.Mode}}">
+						<img style="width: 20%;" src="/images/{{.Name}}">
 					</a>
 				{{end}}
 			</body></html>`
@@ -161,9 +161,6 @@ func renderModeChoices(w http.ResponseWriter, r *http.Request, rs io.ReadSeeker,
 	if err != nil {
 		panic(err)
 	}
-	// fmt.Fprint(w, html)
-	// redirURL := fmt.Sprintf("/%s", b)
-	// http.Redirect(w, r, redirURL, http.StatusFound)
 }
 
 type genOpts struct {
@@ -190,7 +187,7 @@ func genImage(r io.Reader, ext string, numShapes int, mode primitive.Mode) (stri
 		return "", err
 	}
 
-	outFile, err := tempFile("", ext)
+	outFile, err := tempfile("", ext)
 	if err != nil {
 		return "", err
 	}
@@ -199,7 +196,7 @@ func genImage(r io.Reader, ext string, numShapes int, mode primitive.Mode) (stri
 	return outFile.Name(), nil
 }
 
-func tempFile(prefix, ext string) (*os.File, error) {
+func tempfile(prefix, ext string) (*os.File, error) {
 	in, err := ioutil.TempFile("./images/", prefix)
 	if err != nil {
 		return nil, errors.New("main: failed to create temporary file")
