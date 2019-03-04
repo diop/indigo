@@ -27,8 +27,8 @@ func main() {
 		</body></html>`
 		fmt.Fprint(w, html)
 	})
-	mux.HandleFunc("/modify", func(w http.ResponseWriter, r *http.Request) {
-		f, err := os.Open("./image/" + filepath.Base(r.URL.Path))
+	mux.HandleFunc("/modify/", func(w http.ResponseWriter, r *http.Request) {
+		f, err := os.Open("./images/" + filepath.Base(r.URL.Path))
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
@@ -130,7 +130,7 @@ func renderModeChoices(w http.ResponseWriter, r *http.Request, rs io.ReadSeeker,
 		{N: 10, M: primitive.ModeCircle},
 		{N: 10, M: primitive.ModeBeziers},
 		{N: 10, M: primitive.ModePolygon},
-		{N: 10, M: primitive.ModeCombo},
+		{N: 10, M: primitive.ModeTriangle},
 	}
 	imgs, err := genImages(rs, ext, opts...)
 	if err != nil {

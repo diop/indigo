@@ -70,7 +70,7 @@ func Transform(image io.Reader, ext string, numShapes int, opts ...func() []stri
 	b := bytes.NewBuffer(nil)
 	_, err = io.Copy(b, out)
 	if err != nil {
-		return nil, errors.New("primitive: failed to copy output file into byte buffer")
+		return nil, errors.New("primitive: Failed to copy output file into byte buffer")
 	}
 	return b, nil
 }
