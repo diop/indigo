@@ -17,6 +17,14 @@ import (
 )
 
 func main() {
+
+	// go func() {
+	// 	t := time.NewTicker(5 * time.Minute)
+	// 	for {
+	// 		<-t.C
+	// 	}
+	// }()
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		html := `<html><body>
@@ -36,6 +44,7 @@ func main() {
 		defer f.Close()
 		ext := filepath.Ext(f.Name())[1:]
 		modeStr := r.FormValue("mode")
+
 		if modeStr == "" {
 			// Render mode choices
 			renderModeChoices(w, r, f, ext)
@@ -95,8 +104,8 @@ func renderNumShapeChoices(w http.ResponseWriter, r *http.Request, rs io.ReadSee
 	imgs, err := genImages(rs, ext, opts...)
 	if err != nil {
 		panic(err)
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		// http.Error(w, err.Error(), http.StatusInternalServerError)
+		// return
 	}
 	html := `<html><body>
 				{{range .}}
@@ -130,11 +139,11 @@ func renderModeChoices(w http.ResponseWriter, r *http.Request, rs io.ReadSeeker,
 		{N: 10, M: primitive.ModeCircle},
 		{N: 10, M: primitive.ModeBeziers},
 		{N: 10, M: primitive.ModePolygon},
-		{N: 10, M: primitive.ModeTriangle},
+		{N: 10, M: primitive.ModeCombo},
 	}
 	imgs, err := genImages(rs, ext, opts...)
 	if err != nil {
-		panic(err)
+		// panic(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
