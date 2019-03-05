@@ -12,18 +12,19 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 
 	"github.com/diop/indigo/primitive"
 )
 
 func main() {
 
-	// go func() {
-	// 	t := time.NewTicker(5 * time.Minute)
-	// 	for {
-	// 		<-t.C
-	// 	}
-	// }()
+	go func() {
+		t := time.NewTicker(5 * time.Minute)
+		for {
+			<-t.C
+		}
+	}()
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
