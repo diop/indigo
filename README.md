@@ -5,5 +5,7 @@
 
 ![Afro Futurism](images/out/out.png)
 
+© Copyright 2019 Fodé Diop - MIT License
+
 
 
